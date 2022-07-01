@@ -16,10 +16,7 @@ const Header = () => {
 
     const darkTheme = createTheme({
         palette: {
-          primary: {
-              main: "#fff"
-          },
-          type:"dark",
+          mode: 'dark',
         },
       });
  
@@ -67,5 +64,5 @@ export default Header;
 const Contain = styled.div`
     background: #14161a;
     color:white;
-    min-height: 100vh;
+    max-height: 100vh;
 `

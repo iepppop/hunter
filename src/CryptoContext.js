@@ -1,20 +1,22 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const Crypto = createContext();
+export const CryptoState = () => useContext(Crypto);
 
-const CryptoContext = ({ children }) => {
+export const CryptoContext = ({ children }) => {
     const [currency, setCurrency] = useState("INR");
     const [symbol, setSymbol] = useState("₹");
 
     useEffect(()=>{
-        if(currency === "INR") setSymbol ("₹");
-        else if(currency === "USD") setSymbol ("$");
+        if(currency === "INR") setSymbol("₹");
+        else if(currency === "USD") setSymbol("$");
     },[currency]);
 
-    return <Crypto.Provider value={{ currency, symbol, setCurrency }}> {children} </Crypto.Provider>
-};
-export default CryptoContext;
+    const value = { 
+        currency, 
+        setCurrency, 
+        symbol
+    }
 
-export const CryptoState = () => {
-    useContext(Crypto);
-}
+    return <Crypto.Provider value={value}> {children} </Crypto.Provider>
+};

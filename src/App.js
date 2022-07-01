@@ -3,9 +3,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Homepage from './Pages/Homepage';
 import CoinPage from './Pages/CoinPage';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-function App() {
+const App = () => {
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
   return (
+    <ThemeProvider theme={darkTheme}>
     <BrowserRouter>
     <Header />
     <Homepage />
@@ -14,6 +21,7 @@ function App() {
     <Route path='/coins/:id' component={CoinPage}/>
     </Routes>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
