@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Homepage from './Pages/Homepage';
 import CoinPage from './Pages/CoinPage';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const App = () => {
   const darkTheme = createTheme({
@@ -14,7 +15,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
     <BrowserRouter>
-    <Header />
+    {/* <Header /> */}
     <Homepage />
     <Routes>
     <Route path='/' component={Homepage}/>
