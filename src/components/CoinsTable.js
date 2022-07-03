@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CoinList } from "./config/api";
 import { CryptoState } from '../CryptoContext';
 import styled from 'styled-components';
-import { TextField, Typography, LinearProgress } from "@mui/material";
+import { TextField, Typography, LinearProgress, Pagination } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -32,11 +32,17 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+export const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 const CoinsTable = () => {
     const [coins, setCoins] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { currency } = CryptoState();
+    const { currency, symbol } = CryptoState();
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     const fetchCoins = async () => {
@@ -61,7 +67,8 @@ const CoinsTable = () => {
             coin.name.toLowerCase().includes(search) ||
             coin.symbol.toLowerCase().includes(search)
         ))
-    }
+    };
+
 
     return (
         <Container>
@@ -105,40 +112,80 @@ const CoinsTable = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {handleSearch().map((row) => {
-                                        const profit = row.price_change_percentage_24h > 0;
-                                        return (
-                                            <TableRow
-                                                onClick={() => navigate.push(`/coins/${row.id}`)}
-                                                key={row.name}>
-                                                <TableCell
-                                                    component="th"
-                                                    scope="row"
-                                                    style={{
-                                                        display: "flex",
-                                                        gap: 15,
-                                                    }}>
-                                                    <img
-                                                        src={row?.image}
-                                                        alt={row.name}
-                                                        height="50"
-                                                        style={{ marginBottom: 10 }} />
-                                                    <WrapList>
-                                                        <span style={{
-                                                            textTransform:
+                                    {handleSearch()
+                                        .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                                        .map((row) => {
+                                            const profit = row.price_change_percentage_24h > 0;
+                                            return (
+                                                <TableRow
+                                                    onClick={() => navigate.push(`/coins/${row.id}`)}
+                                                    key={row.name}>
+                                                    <TableCell
+                                                        component="th"
+                                                        scope="row"
+                                                        style={{
+                                                            display: "flex",
+                                                            gap: 15,
                                                         }}>
-
-                                                        </span>
-                                                    </WrapList>
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })}
+                                                        <img
+                                                            src={row?.image}
+                                                            alt={row.name}
+                                                            height="50"
+                                                            style={{ marginBottom: 10 }} />
+                                                        <WrapList>
+                                                            <span>
+                                                                {row.symbol}
+                                                            </span>
+                                                            <h1>
+                                                                {row.name}
+                                                            </h1>
+                                                        </WrapList>
+                                                    </TableCell>
+                                                    <TableCell
+                                                        align="right">
+                                                        {symbol}{""}
+                                                        {numberWithCommas(row.current_price.toFixed(2))}
+                                                    </TableCell>
+                                                    <TableCell
+                                                        align="right"
+                                                        style={{
+                                                            color: profit > 0 ? "rgb(14,203,129)" : "red",
+                                                            fontWeight: 500,
+                                                        }}
+                                                    >
+                                                        {profit && "+"}
+                                                        {row.price_change_percentage_24h.toFixed(2)}%
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        {symbol}{""}
+                                                        {numberWithCommas(
+                                                            row.market_cap.toString().slice(0, -6)
+                                                        )}
+                                                        M
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        })}
                                 </TableBody>
                             </Table>
                         )
                 }
             </TableContainer>
+            <Pagination
+                style={{ 
+                    padding:20,
+                    width:"100%",
+                    display:"flex",
+                    justifyContent: "center",
+                }}
+                count={(handleSearch()?.length/10).toFixed(0)}
+                onChange={(_, value)=>{
+                    setPage(value);
+                    window.scroll(0, 450);
+                }}
+                >
+
+            </Pagination>
         </Container>
     )
 }
@@ -148,6 +195,13 @@ const Container = styled.div`
     text-align: center;
     background: #14161a;
     padding:18px;
+
+    .MuiTableBody-root .MuiTableRow-root{
+        curosr:pointer;
+    }
+    .MuiTableBody-root .MuiTableRow-root:hover{
+        background: #131111;
+    }
 `
 
 const WrapList = styled.div`
@@ -157,5 +211,11 @@ const WrapList = styled.div`
     span{
         text-transform:uppercase;
         font-size:22px;
+    }
+
+    h1{
+        font-size:12px;
+        font-weight:500;
+        color:darkgray;
     }
 `
