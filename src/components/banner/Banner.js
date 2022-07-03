@@ -9,7 +9,8 @@ const Banner = () => {
             <Container>
                 <TagLine>
                     <NikeLogo>
-                    <img src="https://blog.kakaocdn.net/dn/cqKaQf/btrGg2cZcli/MdzD53MsVVeyaRSslMyP60/img.png" />
+                        CrytoHunter
+                        <h2>bitcoin website</h2>
                     </NikeLogo>
                     <Typography
                         variant="h2"
@@ -22,7 +23,6 @@ const Banner = () => {
                             color:"white",
                         }}
                     >
-                       
                     </Typography>
                     <Typography
                         variant="subtitle2"
@@ -33,7 +33,6 @@ const Banner = () => {
                             fontSize:'10px'
                         }}
                     >
-
                     </Typography>
                 </TagLine>
                 <Carousel />
@@ -67,7 +66,7 @@ const TagLine = styled.div`
 `
 
 const LColor = styled.div`
-    background:#eee;
+    background:url('https://blog.kakaocdn.net/dn/cmwsZ3/btrGiQplZC7/yhV3kFqZslhz29VKWlVNi0/img.jpg') 90% 90%;
     position:absolute;
     top:0;
     left:0;
@@ -78,8 +77,16 @@ const LColor = styled.div`
 
 const NikeLogo = styled.div`
     width:100px;
-
-    img{
-        width:100%;
+    color:#fff;
+    font-weight:bold;
+    font-size:50px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+    
+    h2{
+        font-size:12px;
+        opacity:0.8;
     }
 `

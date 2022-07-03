@@ -12,10 +12,11 @@ const App = () => {
       mode: 'dark',
     },
   });
+
   return (
     <ThemeProvider theme={darkTheme}>
     <BrowserRouter>
-    {/* <Header /> */}
+    <Header />
     <Homepage />
     <Routes>
     <Route path='/' component={Homepage}/>

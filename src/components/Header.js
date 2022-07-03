@@ -14,14 +14,10 @@ const Header = () => {
     const navigate = useNavigate();
     const { currency, setCurrency } = CryptoState();
 
-    const darkTheme = createTheme({
-        palette: {
-          mode: 'dark',
-        },
-      });
+   
  
     return (
-        <ThemeProvider theme={darkTheme}>
+     
         <Contain>
             <AppBar color="transparent" position="static">
                 <Toolbar variant="dense">
@@ -51,12 +47,12 @@ const Header = () => {
                         onChange={(e)=> setCurrency(e.target.value)}
                         >
                         <MenuItem value={'USD'}>USD</MenuItem>
-                        <MenuItem value={'INR'}>INR</MenuItem>
+                        <MenuItem value={'KRW'}>KRW</MenuItem>
                     </Select>
                 </Toolbar>
             </AppBar>
         </Contain>
-        </ThemeProvider>
+      
     )
 }
 export default Header;
