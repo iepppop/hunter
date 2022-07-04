@@ -17,10 +17,9 @@ const App = () => {
     <ThemeProvider theme={darkTheme}>
     <BrowserRouter>
     <Header />
-    <Homepage />
     <Routes>
-    <Route path='/' component={Homepage}/>
-    <Route path='/coins/:id' component={CoinPage}/>
+    <Route path='/' element={<Homepage />}/>
+    <Route path='/coins/:id' element={<CoinPage />}/>
     </Routes>
     </BrowserRouter>
     </ThemeProvider>
