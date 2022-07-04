@@ -14,10 +14,10 @@ const Header = () => {
     const navigate = useNavigate();
     const { currency, setCurrency } = CryptoState();
 
-   
- 
+
+
     return (
-     
+
         <Contain>
             <AppBar color="transparent" position="static">
                 <Toolbar variant="dense">
@@ -44,15 +44,15 @@ const Header = () => {
                             border: "1px solid #fff"
                         }}
                         value={currency}
-                        onChange={(e)=> setCurrency(e.target.value)}
-                        >
+                        onChange={(e) => setCurrency(e.target.value)}
+                    >
                         <MenuItem value={'USD'}>USD</MenuItem>
                         <MenuItem value={'KRW'}>KRW</MenuItem>
                     </Select>
                 </Toolbar>
             </AppBar>
         </Contain>
-      
+
     )
 }
 export default Header;

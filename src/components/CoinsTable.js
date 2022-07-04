@@ -118,7 +118,7 @@ const CoinsTable = () => {
                                             const profit = row.price_change_percentage_24h > 0;
                                             return (
                                                 <TableRow
-                                                    onClick={() => navigate.push(`/coins/${row.id}`)}
+                                                    onClick={() => navigate(`/coins/${row.id}`)}
                                                     key={row.name}>
                                                     <TableCell
                                                         component="th"
@@ -172,18 +172,18 @@ const CoinsTable = () => {
                 }
             </TableContainer>
             <Pagination
-                style={{ 
-                    padding:20,
-                    width:"100%",
-                    display:"flex",
+                style={{
+                    padding: 20,
+                    width: "100%",
+                    display: "flex",
                     justifyContent: "center",
                 }}
-                count={(handleSearch()?.length/10).toFixed(0)}
-                onChange={(_, value)=>{
+                count={(handleSearch()?.length / 10).toFixed(0)}
+                onChange={(_, value) => {
                     setPage(value);
                     window.scroll(0, 450);
                 }}
-                >
+            >
 
             </Pagination>
         </Container>
@@ -197,7 +197,7 @@ const Container = styled.div`
     padding:18px;
 
     .MuiTableBody-root .MuiTableRow-root{
-        curosr:pointer;
+        cursor:pointer;
     }
     .MuiTableBody-root .MuiTableRow-root:hover{
         background: #131111;
